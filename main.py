@@ -30,17 +30,17 @@ def shortest_shortest_path(graph, source):
         vertex = min(queue, key=lambda v: distances[v])
         queue.remove(vertex)
         
-    for adjacent, weight in graph[vertex]: 
+    for neighbor, weight in graph[vertex]: 
         #want to compute the distances and paths of adjacent verticesm so we go over all possibilities 
-        if distances[adjacent][0] > distances[vertex][0] + weight:
-            distances[adjacent] = (distances[vertex][0] + weight, distances[vertex][1] +1)
-            paths[adjacent] = paths[vertex] + [adjacent]
-        elif distances[adjacent][0] == distances[vertex][0] + weight:
-            if distances[adjacent][1] > distances[vertex][1] + 1:
-                distances[adjacent] = (distances[vertex][0] + weight, distances[vertex][1] +1)
-                paths[adjacent] = paths[vertex] + [adjacent]
-                if adjacent not in queue:
-                    queue.append(adjacent)
+        if distances[neighbor][0] > distances[vertex][0] + weight:
+            distances[neighbor] = (distances[vertex][0] + weight, distances[vertex][1] +1)
+            paths[neighbor] = paths[vertex] + [neighbor]
+        elif distances[neighbor][0] == distances[vertex][0] + weight:
+            if distances[neighbor][1] > distances[vertex][1] + 1:
+                distances[neighbor] = (distances[vertex][0] + weight, distances[vertex][1] +1)
+                paths[neighbor] = paths[vertex] + [neighbor]
+                if neighbor not in queue:
+                    queue.append(neighbor)
     #then we want to return all of the distances between the starting vertext and adjacent vertices that we computed
     return distances
             
@@ -84,10 +84,10 @@ def bfs_path(graph, source):
     while queue:
         vertex = queue.pop(0)
     #we want to update the parent of the adjacent vertices
-    for adjacent in graph[vertex]:
-        if parents[adjacent] is None: #if the adjacent vertex is not in our queue to visit
-            parents[adjacent] = vertex
-            queue.append(adjacent)
+    for neighbor in graph[vertex]:
+        if parents[neighbor] is None: #if the adjacent vertex is not in our queue to visit
+            parents[neighbor] = vertex
+            queue.append(neighbor)
             
     return parents
     pass
